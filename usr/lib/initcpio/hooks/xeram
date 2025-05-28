@@ -2,7 +2,9 @@ run_hook() {
 
 modprobe zram
 
-zramctl /dev/zram0 -a lzo --size 32G
+ram_size=$(cat /proc/cmdline | awk -F 'ram_size=' '{print $2}' | awk '{print $1}')
+
+zramctl /dev/zram0 -a lzo --size $ram_sizeG
 
 rootfshost=$(cat /proc/cmdline | awk -F 'rootfshost=' '{print $2}' | awk '{print $1}')
 rootfsport=$(cat /proc/cmdline | awk -F 'rootfsport=' '{print $2}' | awk '{print $1}')
