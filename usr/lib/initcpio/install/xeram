@@ -1,0 +1,23 @@
+#!/bin/bash
+
+build() {
+    add_binary cp
+    add_binary dd
+    add_binary nc
+    add_binary mkfs.ext4
+    add_binary zramctl
+    add_binaty e2fsck
+    add_binary resize2fs
+    add_dir /zram_root
+    add_module ext4
+    add_module lzo
+    add_module vfat
+    add_module zram
+    add_runscript
+}
+
+help() {
+    cat <<HELPEOF
+This hook optionally loads the root filesystem into zram during boot
+HELPEOF
+}

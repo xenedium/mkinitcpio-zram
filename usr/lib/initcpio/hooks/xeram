@@ -1,0 +1,23 @@
+run_hook() {
+
+modprobe zram
+
+zramctl /dev/zram0 -a lzo --size 32G
+
+nc -w 5 10.0.0.2 8080 | dd of=/dev/zram0 status=progress
+
+e2fsck -f /dev/zram0
+resize2fs /dev/zram0
+
+# new mount handler
+
+zram_mount() {
+    mount /dev/zram0 "$1"
+}
+
+mount_handler=zram_mount
+
+zram_device=/dev/zram0
+export zram_device
+
+}
