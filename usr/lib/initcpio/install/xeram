@@ -6,7 +6,7 @@ build() {
     add_binary nc
     add_binary mkfs.ext4
     add_binary zramctl
-    add_binaty e2fsck
+    add_binary e2fsck
     add_binary resize2fs
     add_dir /zram_root
     add_module ext4
