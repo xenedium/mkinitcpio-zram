@@ -4,7 +4,12 @@ modprobe zram
 
 zramctl /dev/zram0 -a lzo --size 32G
 
-nc -w 5 10.0.0.2 8080 | dd of=/dev/zram0 status=progress
+rootfshost=$(cat /proc/cmdline | awk -F 'rootfshost=' '{print $2}' | awk '{print $1}')
+rootfsport=$(cat /proc/cmdline | awk -F 'rootfsport=' '{print $2}' | awk '{print $1}')
+
+echo Getting rootfs from $rootfshost $rootfsport
+
+nc -w 5 $rootfshost $rootfsport | dd of=/dev/zram0 status=progress
 
 e2fsck -f /dev/zram0
 resize2fs /dev/zram0
