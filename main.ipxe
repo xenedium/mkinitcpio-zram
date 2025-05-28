@@ -1,0 +1,15 @@
+#!ipxe
+
+set server_ip 10.0.0.1
+
+menu xenedium network boot
+
+item arch
+
+choose --default arch --timeout 10 option && goto ${option}
+
+:arch
+kernel tftp://10.0.0.1/vmlinuz
+initrd tftp://10.0.0.1/initrd
+imgargs vmlinuz ip=dhcp rootfshost=10.0.0.2 rootfsport=8080
+boot
